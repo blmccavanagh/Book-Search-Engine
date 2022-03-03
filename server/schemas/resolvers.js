@@ -17,12 +17,12 @@ const resolvers = {
             return { token, user };
         },
         login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email: body.email });
+            const user = await User.findOne({ email: email });
             if (!user) {
                 throw new Error("Can't find this user");
             }
 
-            const correctPw = await user.isCorrectPassword(body.password);
+            const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
                 throw new Error("Wrong password!");
