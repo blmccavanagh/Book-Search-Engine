@@ -17,7 +17,7 @@ const httpLink = createHttpLink({
   uri: '/graphql',
 });
 
-// Request middleware
+// Request middleware.
 // This will attach the JWT token to all requests as an `authorization` header.
 const authLink = setContext((_, { headers }) => {
   // If authentication token from local storage exists, retrieve it.
