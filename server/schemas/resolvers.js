@@ -30,7 +30,29 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        saveBook: async (parent, { authors, description, title, bookId, image, link }) => {
+        saveBook: async (parent, { authors, description, title, bookId, image, link }, context) => {
+            if (!context.user) {
+                throw new Error ("Please login!");
+            }
+            const payload = {
+                authors,
+                description,
+                title,
+                bookId,
+                image,
+                link
+            }
+            try {
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $addToSet: { savedBooks: payload } },
+                    { new: true, runValidators: true }
+                );
+                return updatedUser;
+            } catch (err) {
+                console.log(err);
+                throw new Error (err);
+            }
             // return User
         },
         removeBook: async (parent, { bookId }) => {
