@@ -37,10 +37,10 @@ const resolvers = {
             const payload = {
                 authors,
                 description,
-                title,
                 bookId,
                 image,
-                link
+                link,
+                title
             }
             try {
                 const updatedUser = await User.findOneAndUpdate(
