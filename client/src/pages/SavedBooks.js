@@ -5,6 +5,11 @@ import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
+// useQuery/useMutation triggers the API request
+// In restful API useQuery GET request (fetch)
+
+// useMutation is similar to POST PUT DELETE requests
+// running an action that will change something
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { REMOVE_BOOK } from '../utils/mutations';
 import { QUERY_ME } from '../utils/queries';

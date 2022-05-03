@@ -2,6 +2,9 @@ const { User } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
+
+    // query is read only - accessing data
+    // GET request
     Query: {
         me: async (parent, args, context) => {
             // context.user
@@ -11,6 +14,9 @@ const resolvers = {
         }
     },
 
+    // mutate means change - operations that will change something ie add, update, delete
+    // CRUD + misc
+    // POST PUT DELETE requests
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
             const user = await User.create({ username, email, password });
