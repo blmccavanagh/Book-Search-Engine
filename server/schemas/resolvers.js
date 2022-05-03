@@ -5,7 +5,9 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             // context.user
-            return context.user;
+            const userId = context.user._id;
+            return User.findById(userId);
+            
         }
     },
 
@@ -55,14 +57,14 @@ const resolvers = {
             }
             // return User
         },
-        removeBook: async (parent, { bookId }) => {
+        removeBook: async (parent, { bookId }, context) => {
             const updatedUser = await User.findOneAndUpdate(
-                { _id: user._id },
-                { $pull: { savedBooks: { bookId: params.bookId } } },
+                { _id: context.user._id },
+                { $pull: { savedBooks: { bookId: bookId } } },
                 { new: true }
             );
             if (!updatedUser) {
-                return res.status(404).json({ message: "Couldn't find user with this id!" });
+                throw new Error("Could not find user!")
             }
             return updatedUser;
             // return User
